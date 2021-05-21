@@ -14,7 +14,7 @@ app.engine('handlebars',
 app.set('view engine', 'handlebars');
 
 //TODO Static Files
-app.use(express.static(__dirname))
+app.use(express.static(path.join(__dirname)));
 
 app.use('/', router());
 

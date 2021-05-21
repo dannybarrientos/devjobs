@@ -4,7 +4,7 @@
   "description": "Proyecto DevJobsm Handlebars Mongose",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index"
+    "start": "nodemon ./index"
   },
   "author": "Danny Barrientos",
   "license": "ISC",

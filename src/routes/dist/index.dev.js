@@ -6,7 +6,7 @@ var exphbs = require('express-handlebars');
 
 var path = require('path');
 
-var router = require('../src/routes');
+var router = require('../routes');
 
 var app = express(); //TODO Habilitamos Handlebars como View
 

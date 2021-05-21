@@ -31,7 +31,12 @@
         {{#if tagline}}
             <p class="tagline">{{tagline}}</p>
         {{/if}}
+
+        {{#if boton}}
+            <a href="/vacantes/nueva" class="btn btn-azul">Publicar Nueva Vacante</a>
+        {{/if}}
     </header>
+
 
     <div class="contenido-principal contenedor">
         {{{body}}}

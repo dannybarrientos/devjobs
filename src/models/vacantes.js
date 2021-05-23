@@ -35,7 +35,7 @@ const vacantesSchema = new mongoose.Schema({
         type: String,
         lowercase: true
     },
-    skill: [String],
+    skills: [String],
     candidatos:[{
         nombre: String,
         email: String,

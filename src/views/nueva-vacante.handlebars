@@ -35,11 +35,13 @@
             <trix-editor input="x"></trix-editor>
         </div>
         <H3>Conocimientos</H3>
+
         <ul class="lista-conocimientos">
             {{#selecionarSkills loquesea}}
             {{/selecionarSkills}}
         </ul>
         <div class="campo centrar-horizontal">
+            <input type="hidden" id="skills" name="skills">
             <input type="submit" value="Publicar" class ="btn btn-azul">
         </div>
 

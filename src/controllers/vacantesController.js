@@ -8,18 +8,28 @@ exports.formularioNuevaVacante = (req, res) => {
         tagline: 'Llena el formulario y publica tu vacante'
     })
 }
-//TODO Agregar las vacantes a la bases de datos
-exports.agregarVacante = async(req, res) => {
-
+//TODO Agrega las vacantes a la base de datos
+exports.agregarVacante = async (req, res) => {
     const vacante = new Vacante(req.body);
 
-    //TODO Crear arreglos de habilidades (skills)
+   //TODO Crear arreglo de habilidades (skills)
     vacante.skills = req.body.skills.split(',');
 
-    //TODO Almacenar en la bases de datos
+    //TODO Almacenarlo en la base de datos
     const nuevaVacante = await vacante.save()
 
     //TODO Redireccionar hacia la nueva vacante y poderla ver
     res.redirect(`/vacantes/${nuevaVacante.url}`);
 
+}
+exports.mostrarVacante = async (req, res, next) => {
+    const vacante = await Vacante.findOne({ url: req.params.url }).lean();
+    //TODO Si no hay resultados
+    if(!vacante) return next();
+
+    res.render('vacante', {
+        vacante,
+        nombrePagina: vacante.titulo,
+        barra: true
+    })
 }

@@ -300,7 +300,7 @@ h3 {
 .default-form input[type="file"] {
     color: white;
 }
-trix-toolbar,
+trix-toolbar, 
 trix-editor {
     background-color: white!important;
 }

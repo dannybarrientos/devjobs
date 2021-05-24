@@ -4,7 +4,7 @@ require('./config/db')
 const express = require('express')
 const exphbs = require('express-handlebars')
 const path = require('path');
-const router = require('../src/routes')
+const router = require('./routes')
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);

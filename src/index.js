@@ -13,6 +13,10 @@ require('dotenv').config({path :'variables.env'})
 
 const app = express();
 
+//TODO Habilitar el body parser para leer los datos del formulario
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
 //TODO Habilitamos Handlebars como View
 app.engine('handlebars',
     exphbs({
@@ -28,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser())
 //TODO Realizo el firmado de mi session
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SECRETO,
     key: process.env.KEY,
     resave: false,
     saveUninitialized:false,

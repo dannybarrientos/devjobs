@@ -6,40 +6,40 @@ const shortid = require('shortid');
 const vacantesSchema = new mongoose.Schema({
     titulo: {
         type: String,
-        requerid: 'El nombre de la vancate es obligatorio',
-        trim: true
+        required: 'El nombre de la vacante es obligatorio',
+        trim : true
     },
-    empresa :{
+    empresa: {
         type: String,
         trim: true
     },
     ubicacion: {
         type: String,
         trim: true,
-        required : 'La ubicacion es obligatoria'
+        required: 'La ubicación es obligatoria'
     },
     salario: {
         type: String,
-        default:0,
-        trim: true
+        default: 0,
+        trim: true,
     },
-    contrato:{
+    contrato: {
         type: String,
-        trim: true
+        trim: true,
     },
     descripcion: {
         type: String,
-        trim: true
+        trim: true,
     },
-    url: {
+    url : {
         type: String,
-        lowercase: true
+        lowercase:true
     },
     skills: [String],
-    candidatos:[{
+    candidatos: [{
         nombre: String,
         email: String,
-        cv: String
+        cv : String
     }]
 });
 
@@ -48,8 +48,8 @@ vacantesSchema.pre('save', function(next) {
 
     //TODO Crear la URL con su unico id
     const url = slug(this.titulo);
-    this.url =`${url}-${shortid.generate()}`;
+    this.url = `${url}-${shortid.generate()}`;
 
     next();
 })
-module.exports = mongoose.model('Vacante', vacantesSchema)
+module.exports = mongoose.model('Vacante', vacantesSchema);

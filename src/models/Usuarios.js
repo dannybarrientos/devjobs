@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const bcrypt = require('bcrypt')
 
-const usuarioSchema = new mongoose.Schema({
+const usuariosSchema = new mongoose.Schema({
     email: {
         type: String,
         unique: true,
@@ -27,7 +27,7 @@ const usuarioSchema = new mongoose.Schema({
 })
 
 //TODO Metodo para hashear los password
-usuarioSchema.pre('save', async function(next) {
+usuariosSchema.pre('save', async function(next) {
     //TODO Si el password ya esta hasheado
     if(!this.isModified('password')) {
         return next() //TODO Deten la ejecucion
@@ -38,13 +38,13 @@ usuarioSchema.pre('save', async function(next) {
     next();
 })
 //TODO Validar si el correo ya esta registrado
-usuarioSchema.post('save', function(error, doc, next) {
+usuariosSchema.post('save', function(error, doc, next) {
     if(error.name === 'MongoError' && error.code === 11000){
         next('Ese correo ya esta registrado')
     } else {
-        next(error);
+        next(error)
     }
 })
 
 
-module.exports = mongoose.model('Usuarios', usuarioSchema)
+module.exports = mongoose.model('Usuarios', usuariosSchema)

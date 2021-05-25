@@ -2,8 +2,7 @@ const mongoose = require('mongoose');
 require('dotenv').config({path: 'variables.env'});
 
 mongoose.connect(process.env.DATABASE, {
-    useUnifiedTopology: true,
-    useNewUrlParser:true
+    useUnifiedTopology: true
     });
 
 mongoose.connection.on('error', (error) => {

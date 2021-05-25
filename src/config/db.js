@@ -3,8 +3,6 @@ require('dotenv').config({path: 'variables.env'});
 
 mongoose.connect(process.env.DATABASE, {
     useUnifiedTopology: true,
-    useNewUrlParser: true,
-    useFindAndModify: true,
     useCreateIndex: true
     });
 

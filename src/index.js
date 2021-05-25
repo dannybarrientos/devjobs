@@ -8,12 +8,15 @@ const router = require('./routes')
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
-const { body } = require('express-validator');
+const expressValidator = require('express-validator');
 const flash = require('connect-flash')
 
 require('dotenv').config({path :'variables.env'})
 
 const app = express();
+
+//TODO Validacion campos
+app.use(expressValidator());
 
 //TODO Habilitar el body parser para leer los datos del formulario
 app.use(express.json());

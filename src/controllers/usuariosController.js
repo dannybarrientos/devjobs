@@ -9,13 +9,27 @@ exports.formCrearCuenta = (req, res ) => {
 }
 //TODO Validar registros
 exports.validarRegistro = (req, res, next) => {
+
+    //TODO Sanitizar mis datos
+    req.sanitizeBody('nombre').escape();
+    req.sanitizeBody('email').escape();
+    req.sanitizeBody('password').escape();
+    req.sanitizeBody('confirmar').escape();
+
+    //TODO Validar
     req.checkBody('nombre', 'El Nombre es Obligatorio').noEmpty();
+    req.checkBody('email', 'El email es Obligatorio').isEmail();
+    req.checkBody('password', 'El password no pueder ir vacio').noEmpty();
+    req.checkBody('confirmar', 'Confirmar password no pueder ir vacio').noEmpty();
 
     const errores = req.validationErrors();
 
-    console.log(errores);
+    if(errores){
+        //TODO Si hay errores
 
-    return;
+    }
+//TODO Si todo la validacion es correcta;
+    next();
 }
 
 exports.crearUsuario = async(req, res, next) => {

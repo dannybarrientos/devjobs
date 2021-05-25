@@ -16,7 +16,7 @@ module.exports = {
     },
     tipoContrato: (seleccionado, opciones) => {
         return opciones.fn(this).replace(
-            new RegExp(` value="${seleccionado}"`), '$& selected="selected"'
+            new RegExp(`value="${seleccionado}"`), '$& selected="selected"'
         )
     },
     mostrarAlertas: (errores = {}, alertas ) => {

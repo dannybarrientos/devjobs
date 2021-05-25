@@ -7,6 +7,16 @@ exports.formCrearCuenta = (req, res ) => {
         tagline: 'Comienza a publicar tus vacantes gratis, solo debes crear una cuenta'
     })
 }
+//TODO Validar registros
+exports.validarRegistro = (req, res, next) => {
+    req.checkBody('nombre', 'El Nombre es Obligatorio').noEmpty();
+
+    const errores = req.validationErrors();
+
+    console.log(errores);
+
+    return;
+}
 
 exports.crearUsuario = async(req, res, next) => {
   //TODO Crear el usuario

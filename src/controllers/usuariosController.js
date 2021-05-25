@@ -31,7 +31,8 @@ exports.validarRegistro = (req, res, next) => {
 
         res.render('crear-cuenta', {
             nombrePagina: 'Crea tu cuenta en devJobs',
-            tagline: 'Comienza a publicar tus vacantes gratis, solo debes crear una cuenta',mensajes: req.flash()
+            tagline: 'Comienza a publicar tus vacantes gratis, solo debes crear una cuenta',
+            mensajes: req.flash()
         });
         return;
     }

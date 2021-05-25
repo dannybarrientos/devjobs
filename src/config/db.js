@@ -5,9 +5,7 @@ mongoose.connect(process.env.DATABASE, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
     useFindAndModify: true,
-    }).then(() => console.log('DB Connected!'))
-    .catch(err => {
-    console.log(`DB Connection Error: ${err.message}`);
+    useCreateIndex: true
     });
 
 mongoose.connection.on('error', (error) => {

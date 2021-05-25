@@ -10,25 +10,33 @@ exports.formCrearCuenta = (req, res ) => {
 //TODO Validar registros
 exports.validarRegistro = (req, res, next) => {
 
-    //TODO Sanitizar mis datos
+    //TODO sanitizar
     req.sanitizeBody('nombre').escape();
     req.sanitizeBody('email').escape();
     req.sanitizeBody('password').escape();
     req.sanitizeBody('confirmar').escape();
 
-    //TODO Validar
-    req.checkBody('nombre', 'El Nombre es Obligatorio').noEmpty();
-    req.checkBody('email', 'El email es Obligatorio').isEmail();
-    req.checkBody('password', 'El password no pueder ir vacio').noEmpty();
-    req.checkBody('confirmar', 'Confirmar password no pueder ir vacio').noEmpty();
+    //TODO validar
+    req.checkBody('nombre', 'El Nombre es Obligatorio').notEmpty();
+    req.checkBody('email', 'El email debe ser valido').isEmail();
+    req.checkBody('password', 'El password no puede ir vacio').notEmpty();
+    req.checkBody('confirmar', 'Confirmar password no puede ir vacio').notEmpty();
+    req.checkBody('confirmar', 'El password es diferente').equals(req.body.password);
 
     const errores = req.validationErrors();
 
     if(errores){
-        //TODO Si hay errores
+        //TODO si hay errores
+        req.flash('error', errores.map(error => error.msg));
 
+        res.render('crear-cuenta', {
+            nombrePagina: 'Crea tu cuenta en devJobs',
+            tagline: 'Comienza a publicar tus vacantes gratis, solo debes crear una cuenta',mensajes: req.flash()
+        });
+        return;
     }
-//TODO Si todo la validacion es correcta;
+
+    //TODO Si toda la validación es correcta
     next();
 }
 

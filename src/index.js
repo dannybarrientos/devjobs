@@ -1,15 +1,16 @@
 const mongoose = require('mongoose');
-require('./config/db')
+require('./config/db');
 
-const express = require('express')
-const exphbs = require('express-handlebars')
+const express = require('express');
+const exphbs = require('express-handlebars');
 const path = require('path');
-const router = require('./routes')
+const router = require('./routes');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
-const flash = require('connect-flash')
+const flash = require('connect-flash');
 
 require('dotenv').config({path :'variables.env'})
 

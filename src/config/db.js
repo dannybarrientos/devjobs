@@ -14,4 +14,5 @@ mongoose.connection.on('error', (error) => {
     console.log(error);
 })
 //TODO mportar los modelos
+require('../models/Usuarios');
 require('../models/Vacantes');

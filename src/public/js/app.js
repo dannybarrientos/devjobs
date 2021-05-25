@@ -30,7 +30,6 @@ const skillsSeleccionados = () => {
     seleccionadas.forEach(seleccionada => {
         skills.add(seleccionada.textContent);
     })
-x
     //TODO Inyectarlo en el hidden
     const skillsArray = [...skills]
     document.querySelector('#skills').value = skillsArray;

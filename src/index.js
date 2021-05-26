@@ -1,10 +1,11 @@
-const mongoose = require('mongoose');
 require('./config/db');
+require('dotenv').config({path :'variables.env'})
 
+const mongoose = require('mongoose');
 const express = require('express');
 const exphbs = require('express-handlebars');
-const path = require('path');
 const router = require('./routes');
+const path = require('path');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
@@ -13,18 +14,15 @@ const expressValidator = require('express-validator');
 const flash = require('connect-flash');
 const passport = require('passport')
 
-require('dotenv').config({path :'variables.env'})
 
 const app = express();
-
-//TODO Validacion campos
-app.use(expressValidator());
 
 //TODO Habilitar el body parser para leer los datos del formulario
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-
+//TODO Validacion campos
+app.use(expressValidator());
 
 //TODO Habilitamos Handlebars como View
 app.engine('handlebars',
@@ -35,10 +33,11 @@ app.engine('handlebars',
 );
 app.set('view engine', 'handlebars');
 
-//TODO Static Files
+//TODO Cargar Static Files
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cookieParser())
+
 //TODO Realizo el firmado de mi session
 app.use(session({
     secret: process.env.SECRETO,

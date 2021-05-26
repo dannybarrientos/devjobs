@@ -26,7 +26,7 @@ exports.agregarVacante = async (req, res) => {
 
 }
 exports.mostrarVacante = async (req, res, next) => {
-    const vacante = await Vacante.findOne({ url: req.params.url }).lean();
+    const vacante = await Vacante.findOne({ url: req.params.url });
     //TODO Si no hay resultados
     if(!vacante) return next();
 
@@ -37,7 +37,7 @@ exports.mostrarVacante = async (req, res, next) => {
     })
 }
 exports.formEditarVacante = async (req, res, next) => {
-    const vacante = await Vacante.findOne({ url: req.params.url }).lean();
+    const vacante = await Vacante.findOne({ url: req.params.url });
 
     //TODO Si no hay resultados
     if(!vacante) return next();
@@ -57,6 +57,6 @@ exports.editarVacante = async (req, res) => {
          vacanteActualizada, {
              new: true,
              runValidators: true
-         }).lean()
+         })
          res.redirect(`/vacantes/${vacante.url}`);
 }

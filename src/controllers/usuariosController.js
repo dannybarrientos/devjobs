@@ -45,7 +45,7 @@ exports.crearUsuario = async (req, res, next) => {
     //TODO Crear el usuario
     const usuario = new Usuarios(req.body);
     try {
-        await usuario.save().lean();
+        await usuario.save();
         res.redirect('/iniciar-sesion');
     } catch (error) {
         req.flash('error', error);
@@ -57,5 +57,13 @@ exports.crearUsuario = async (req, res, next) => {
 exports.formIniciarSesion = (req, res ) => {
     res.render('iniciar-sesion', {
         nombrePagina : 'Iniciar Sesión devJobs'
+    })
+}
+
+//TODO Formulario Editar Perfil
+exports.formEditarPerfil = (req, res) => {
+    res.render('editar-perfil', {
+        nombrePagina : 'Edita tu perfil en devJobs',
+        usuario: req.user
     })
 }

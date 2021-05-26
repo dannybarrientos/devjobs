@@ -52,6 +52,11 @@ module.exports = () => {
         authController.verificarUsuario,
         authController.mostrarPanel
     );
+    //TODO Editar Perfil
+    router.get('/editar-perfil',
+        authController.verificarUsuario,
+        usuariosController.formEditarPerfil
+    );
 
     return router;
 }

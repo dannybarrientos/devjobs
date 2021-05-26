@@ -1,6 +1,8 @@
-const passport = require('passport');
+const passport = require('../config/passport');
 
-exports.autenticarUsuario = passport.authenticate ('local', {
+exports.autenticarUsuario = passport.authenticate('local', {
     successRedirect : '/ok',
-    failureRedirect : '/mal'
+    failureRedirect : '/iniciar-sesion',
+    failureFlash: true,
+    badRequestMessage : 'Ambos campos son obligatorio'
 })

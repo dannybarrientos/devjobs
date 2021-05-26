@@ -11,6 +11,7 @@ const MongoStore = require('connect-mongo')(session);
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 const flash = require('connect-flash');
+const passport = require('passport')
 
 require('dotenv').config({path :'variables.env'})
 
@@ -47,15 +48,19 @@ app.use(session({
     store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
+//TODO Inicializar Passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 //TODO Alertas y flash messages
 app.use(flash())
 
 //TODO Crear nuestro middleware -- lo podemos hacer en otro archivo si desean
 app.use((req, res, next) => {
-    res.locals.mensaje = req.flash();
+    res.locals.mensajes = req.flash();
     next();
- 
-})
+});
 
 app.use('/', router());
 

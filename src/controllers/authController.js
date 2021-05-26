@@ -6,3 +6,10 @@ exports.autenticarUsuario = passport.authenticate('local', {
     failureFlash: true,
     badRequestMessage : 'Ambos campos son obligatorio'
 })
+
+exports.mostrarPanel = (req, res) => {
+    res.render('administracion', {
+        nombrePagina: 'Panel de Adminitracion',
+        tagline: 'Crear y Administra tus vacantes desde aquí ',
+    })
+}

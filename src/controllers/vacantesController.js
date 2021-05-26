@@ -32,7 +32,7 @@ exports.mostrarVacante = async (req, res, next) => {
 
     res.render('vacante', {
         vacante,
-        nombrePagina: vacante.titulo,
+        nombrePagina : vacante.titulo,
         barra: true
     })
 }
@@ -57,6 +57,6 @@ exports.editarVacante = async (req, res) => {
          vacanteActualizada, {
              new: true,
              runValidators: true
-         })
+         }).lean()
          res.redirect(`/vacantes/${vacante.url}`);
 }

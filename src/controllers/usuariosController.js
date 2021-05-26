@@ -45,7 +45,7 @@ exports.crearUsuario = async (req, res, next) => {
     //TODO Crear el usuario
     const usuario = new Usuarios(req.body);
     try {
-        await usuario.save();
+        await usuario.save().lean();
         res.redirect('/iniciar-sesion');
     } catch (error) {
         req.flash('error', error);

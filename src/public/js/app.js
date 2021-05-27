@@ -1,3 +1,6 @@
+import axios from 'axios';
+import Swal from 'sweetalert2';
+
 document.addEventListener('DOMContentLoaded', () => {
     const skills = document.querySelector('.lista-conocimientos');
 
@@ -12,6 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
         skills.addEventListener('click', agregarSkills);
         //TODO Una vez que estamos editando, llamar la funcion
         skillsSeleccionados();
+    }
+
+    const vacantesListado = document.querySelector('.panel-administracion');
+    if(vacantesListado){
+        vacantesListado.addEventListener('click', accionesListado)
     }
 
 })
@@ -54,4 +62,16 @@ const limpiarAlertas = () => {
             clearInterval(interval)
         }
     }, 2000);
+}
+
+//TODO Eliminar Vacantes
+const accionesListado = e => {
+    e.preventDefault();
+
+    if(e.target.dataset.eliminar){
+        //TODO Eliminar con Axios
+
+    } else {
+        window.location.href = e.target.href
+    }
 }

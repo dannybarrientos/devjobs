@@ -85,3 +85,37 @@ exports.editarPerfil = async (req, res) => {
     // redirect
     res.redirect('/administracion');
 }
+
+//TODO Sanitizar  y validar el formulario de editar el perfiles
+exports.validarPerfil = (req, res, next) => {
+
+    //TODO sanitizar
+    req.sanitizeBody('nombre').escape();
+    req.sanitizeBody('email').escape();
+
+    if(req.body.password){
+        req.sanitizeBody('password').escape();
+    }
+
+    //TODO validar
+    req.checkBody('nombre', 'El Nombre no puede ir vacio').notEmpty();
+    req.checkBody('email', 'El correo no puede ir vacio').isEmail();
+
+    const errores = req.validationErrors();
+
+    if(errores){
+        //TODO si hay errores
+        req.flash('error', errores.map(error => error.msg));
+        res.render('editar-perfil', {
+            nombrePagina : 'Edita tu perfil en devJobs',
+            usuario: req.user,
+            cerrarSesion: true,
+            nombre: req.user.nombre,
+            mensajes: req.flash()
+        })
+
+    }
+
+    //TODO Si toda la validación es correcta
+    next();
+}

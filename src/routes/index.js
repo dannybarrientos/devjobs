@@ -39,7 +39,7 @@ module.exports = () => {
     );
 
     //TODO Eliminar Vacantes
-    router.delete('/vacantes/eliminar/:url',
+    router.delete('/vacantes/eliminar/:id',
         vacantesController.eliminarVacante
     );
 

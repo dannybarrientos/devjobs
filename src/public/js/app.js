@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const vacantesListado = document.querySelector('.panel-administracion');
     if(vacantesListado){
-        vacantesListado.addEventListener('click', accionesListado())
+        vacantesListado.addEventListener('click', accionesListado);
     }
 
 })
@@ -69,8 +69,7 @@ const accionesListado = e => {
     e.preventDefault();
 
     if(e.target.dataset.eliminar){
-        //TODO Eliminar con Axios
-
+        //TODO eliminar por axios
         Swal.fire({
             title: '¿Confirmar Eliminación?',
             text: "Una vez eliminada, no se puede recuperar",
@@ -81,31 +80,37 @@ const accionesListado = e => {
             confirmButtonText: 'Si, Eliminar',
             cancelButtonText : 'No, Cancelar'
           }).then((result) => {
-            if (result.isConfirmed) {
+            if (result.value) {
 
-            //TODO Enviar Peticion con axios
-            const url =`${location.origin}/vacantes/eliminar/${e.target.dataset.eliminar}`;
+                //TODO enviar la petición con axios
+                const url = `${location.origin}/vacantes/eliminar/${e.target.dataset.eliminar}`;
 
-            //TODO Axios para eliminar el registro
-            axios.delete(url, { params: {url}})
-            .then(function(respuesta) {
-                if(respuesta.status ===2000) {
-                    Swal.fire(
-                        'Eliminado',
-                        respuesta.data,
-                        'success'
-                    );
-                    //TODO Eliminar del DOM
-                    e.target.parentElement.parentElement.parentElement.removeChild(
-                    e.target.parentElement.parentElement)
-                }
-            })
+                //TODO Axios para eliminar el registro
+                axios.delete(url, { params: {url} })
+                    .then(function(respuesta) {
+                        if(respuesta.status === 200) {
+                            Swal.fire(
+                                'Eliminado',
+                                respuesta.data,
+                                'success'
+                            );
 
+                            //Eliminar del DOM
+                            e.target.parentElement.parentElement.parentElement.removeChild(e.target.parentElement.parentElement);
+                        }
+                    })
+                    .catch(() => {
+                        Swal.fire({
+                            type:'error',
+                            title: 'Hubo un error',
+                            text: 'No Se pudo eliminar'
+                        })
+                    })
 
             }
           })
-
-    } else {
-        window.location.href = e.target.href
+    }
+    else if(e.target.tagName === 'A') {
+        window.location.href = e.target.href;
     }
 }

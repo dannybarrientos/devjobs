@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const vacantesListado = document.querySelector('.panel-administracion');
     if(vacantesListado){
-        vacantesListado.addEventListener('click', accionesListado)
+        vacantesListado.addEventListener('click', accionesListado())
     }
 
 })
@@ -70,6 +70,40 @@ const accionesListado = e => {
 
     if(e.target.dataset.eliminar){
         //TODO Eliminar con Axios
+
+        Swal.fire({
+            title: '¿Confirmar Eliminación?',
+            text: "Una vez eliminada, no se puede recuperar",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Eliminar',
+            cancelButtonText : 'No, Cancelar'
+          }).then((result) => {
+            if (result.isConfirmed) {
+
+            //TODO Enviar Peticion con axios
+            const url =`${location.origin}/vacantes/eliminar/${e.target.dataset.eliminar}`;
+
+            //TODO Axios para eliminar el registro
+            axios.delete(url, { params: {url}})
+            .then(function(respuesta) {
+                if(respuesta.status ===2000) {
+                    Swal.fire(
+                        'Eliminado',
+                        respuesta.data,
+                        'success'
+                    );
+                    //TODO Eliminar del DOM
+                    e.target.parentElement.parentElement.parentElement.removeChild(
+                    e.target.parentElement.parentElement)
+                }
+            })
+
+
+            }
+          })
 
     } else {
         window.location.href = e.target.href

@@ -23,6 +23,7 @@ const configuracionMulter = {
             cb(null, `${shortid.generate()}.${extension}`);
         }
     })
+
 }
 
 const upload = multer(configuracionMulter).single('imagen')

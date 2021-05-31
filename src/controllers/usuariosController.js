@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Usuarios = mongoose.model('Usuarios');
 const multer = require('multer');
+const shortid =require('shortid');
 
 exports.subirImagen = (req, res, next) => {
     upload(req, res,function(error) {
@@ -11,6 +12,23 @@ exports.subirImagen = (req, res, next) => {
     });
     next();
 }
+//TODO Opciones de MultiError
+const configuracionMulter = {
+    storage: fileStorage = multer.diskStorage({
+        destination: (req, file, cb) => {
+            cb(null, __dirname+'../../public/uploads/perfiles');
+        },
+        filename: (req, file, cb) => {
+            const extension = file.mimetype.split('/')[1];
+            cb(null, `${shortid.generate()}.${extension}`);
+        }
+    })
+}
+
+const upload = multer(configuracionMulter).single('imagen')
+
+
+
 
 exports.formCrearCuenta = (req, res ) => {
     res.render('crear-cuenta',{

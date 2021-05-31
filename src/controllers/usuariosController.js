@@ -5,11 +5,18 @@ const shortid = require('shortid');
 
 exports.subirImagen = (req, res, next) => {
     upload(req, res,function(error) {
-        if(error instanceof multer.MulterError){
+        if(error) {
+            if(error instanceof multer.MulterError){
+                return next();
+            }else {
+                req.flash('error', error.message);
+            }
+            res.redirect('/administracion');
+            return;
+        } else {
             return next();
         }
     });
-    next();
 }
 //TODO Opciones de MultiError
 const configuracionMulter = {
@@ -17,7 +24,7 @@ const configuracionMulter = {
     storage: fileStorage = multer.diskStorage({
         destination : (req, file, cb) => {
             cb(null, __dirname+'../../public/uploads/perfiles');
-        }, 
+        },
         filename : (req, file, cb) => {
             const extension = file.mimetype.split('/')[1];
             cb(null, `${shortid.generate()}.${extension}`);

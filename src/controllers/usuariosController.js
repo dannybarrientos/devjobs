@@ -1,5 +1,16 @@
 const mongoose = require('mongoose');
 const Usuarios = mongoose.model('Usuarios');
+const multer = require('multer');
+
+exports.subirImagen = (req, res, next) => {
+    upload(req, res,function(error) {
+        if(error instanceof multer.MultiError){
+            return next();
+
+        }
+    });
+    next();
+}
 
 exports.formCrearCuenta = (req, res ) => {
     res.render('crear-cuenta',{

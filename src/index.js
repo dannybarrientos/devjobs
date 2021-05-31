@@ -3,7 +3,9 @@ require('dotenv').config({path :'variables.env'})
 
 const mongoose = require('mongoose');
 const express = require('express');
+const Handlebars = require('handlebars')
 const exphbs = require('express-handlebars');
+const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access');
 const router = require('./routes');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -27,6 +29,7 @@ app.use(expressValidator());
 //TODO Habilitamos Handlebars como View
 app.engine('handlebars',
     exphbs({
+        handlebars: allowInsecurePrototypeAccess(Handlebars),
         defaultLayout: 'layout',
         helpers: require('./helpers/handlebars')
     })

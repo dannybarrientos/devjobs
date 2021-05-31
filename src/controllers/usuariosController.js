@@ -1,29 +1,36 @@
 const mongoose = require('mongoose');
 const Usuarios = mongoose.model('Usuarios');
 const multer = require('multer');
-const shortid =require('shortid');
+const shortid = require('shortid');
 
 exports.subirImagen = (req, res, next) => {
     upload(req, res,function(error) {
-        if(error instanceof multer.MultiError){
+        if(error instanceof multer.MulterError){
             return next();
-
         }
     });
     next();
 }
 //TODO Opciones de MultiError
 const configuracionMulter = {
+    limits : { fileSize : 100000 },
     storage: fileStorage = multer.diskStorage({
-        destination: (req, file, cb) => {
+        destination : (req, file, cb) => {
             cb(null, __dirname+'../../public/uploads/perfiles');
-        },
-        filename: (req, file, cb) => {
+        }, 
+        filename : (req, file, cb) => {
             const extension = file.mimetype.split('/')[1];
             cb(null, `${shortid.generate()}.${extension}`);
         }
-    })
-
+    }),
+    fileFilter(req, file, cb) {
+        if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' ) {
+            //TODO el callback se ejecuta como true o false : true cuando la imagen se acepta
+            cb(null, true);
+        } else {
+            cb(new Error('Formato No Válido'));
+        }
+    }
 }
 
 const upload = multer(configuracionMulter).single('imagen')
@@ -109,10 +116,13 @@ exports.editarPerfil = async (req, res) => {
     if(req.body.password) {
         usuario.password = req.body.password
     }
+    if(req.file) {
+        usuario.image = req.file.filename;
+    }
     await usuario.save();
 
     req.flash('correcto', 'Cambios Guardados Correctamente');
-    // redirect
+    //TODO redirect
     res.redirect('/administracion');
 }
 

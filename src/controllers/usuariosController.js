@@ -4,7 +4,7 @@ const multer = require('multer');
 const shortid = require('shortid');
 
 exports.subirImagen = (req, res, next) => {
-    upload(req, res,function(error) {
+    upload(req, res, function(error) {
         if(error) {
             if(error instanceof multer.MulterError){
                 if(error.code==='LIMIT_FILE_SIZE') {
@@ -115,6 +115,7 @@ exports.formEditarPerfil = (req, res) => {
         usuario: req.user,
         cerrarSesion: true,
         nombre: req.user.nombre,
+        imagen: req.user.imagen
     })
 }
 
@@ -128,7 +129,7 @@ exports.editarPerfil = async (req, res) => {
         usuario.password = req.body.password
     }
     if(req.file) {
-        usuario.image = req.file.filename;
+        usuario.imagen = req.file.filename;
     }
     await usuario.save();
 
@@ -162,6 +163,7 @@ exports.validarPerfil = (req, res, next) => {
             usuario: req.user,
             cerrarSesion: true,
             nombre: req.user.nombre,
+            imagen: req.user.imagen,
             mensajes: req.flash()
         })
 

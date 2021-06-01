@@ -8,6 +8,7 @@ exports.formularioNuevaVacante = (req, res) => {
         tagline: 'Llena el formulario y publica tu vacante',
         cerrarSesion: true,
         nombre: req.user.nombre,
+        imagen: req.user.imagen
     })
 }
 //TODO Agrega las vacantes a la base de datos
@@ -49,6 +50,7 @@ exports.formEditarVacante = async (req, res, next) => {
         nombrePagina: `Editar - ${vacante.titulo}`,
         cerrarSesion: true,
         nombre: req.user.nombre,
+        imagen: req.user.imagen
     })
 }
 

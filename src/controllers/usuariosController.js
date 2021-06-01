@@ -7,7 +7,11 @@ exports.subirImagen = (req, res, next) => {
     upload(req, res,function(error) {
         if(error) {
             if(error instanceof multer.MulterError){
-                return next();
+                if(error.code==='LIMIT_FILE_SIZE') {
+                    req.flash('error', 'El archivo que se va a agregar es muy grande: maximo 100kb')
+                } else {
+                    req.flash('error', error.message);
+                }
             }else {
                 req.flash('error', error.message);
             }

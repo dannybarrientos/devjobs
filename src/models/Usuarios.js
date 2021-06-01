@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 
 const usuariosSchema = new mongoose.Schema({
     email: {
@@ -17,9 +17,9 @@ const usuariosSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true
-    },
+    }, 
     token: String,
-    expira: Date,
+    expira: Date, 
     imagen: String
 });
 

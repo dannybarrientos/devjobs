@@ -75,19 +75,17 @@ exports.enviarToken = async (req, res) => {
 
     //TODO Guarda el usuario
     await usuario.save();
-    const resetUrl =  `http://${req.headers.host}/restablecer-password/${usuario.token}`;
-    console.log(resetUrl);
+    const resetUrl = `http://${req.headers.host}/restablecer-password/${usuario.token}`;
 
     //TODO Enviar notificacion por el email
-    await enviarEmail({
+    await enviarEmail.enviar({
         usuario,
-        subject: 'Password Resetear',
+        subject : 'Password Reset',
         resetUrl,
         archivo: 'reset'
-
     });
 
     //TODO Todo correcto
-    req.flash('correcto','Revisa tu email para las indicaciones')
-    res.redirect('/iniciar-sesion')
+    req.flash('correcto', 'Revisa tu email para las indicaciones');
+    res.redirect('/iniciar-sesion');
 }

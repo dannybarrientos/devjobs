@@ -78,7 +78,10 @@ module.exports = () => {
     );
 
     //TODO Recibir Mensaje de Candidadtos
-    router.post('/vacantes/:url', vacantesController.subirCV,vacantesController.contactar);
+    router.post('/vacantes/:url',
+        vacantesController.subirCV,
+        vacantesController.contactar
+    );
 
     return router;
 }

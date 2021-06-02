@@ -111,9 +111,10 @@ exports.eliminarVacante = async(req, res) => {
     const { id } = req.params;
 
     const vacante = await Vacante.findById(id);
-    console.log(vacante);
+
     if(verificarAutor(vacante, req.user)) {
         //TODO Todo Bien , si  es el usuario a eliminar
+        vacante.remove();
         res.status(200).send('Vacante ELiminada CORRectamente');
     } else {
         //TODO no es permitido el usuario
@@ -197,19 +198,20 @@ exports.contactar = async (req, res, next) => {
 
 }
 
-exports.mostrarCandidatos = async (req, res) => {
+exports.mostrarCandidatos = async (req, res, next) => {
     const vacante = await Vacante.findById(req.params.id);
 
-    if(vacate.autor == req.user._id.toString()) {
+    if(vacante.autor != req.user._id.toString()){
         return next();
     }
+
     if(!vacante) return next();
 
     res.render('candidatos', {
-        nombrePagina: `Candidatos vacantes - ${vacante.titulo}`,
-        cerrarSesion: true,
-        nombre: req.user.nombre,
-        image: req.user.image,
-        candidatos: vacante.candidatos
+        nombrePagina : `Candidatos Vacante - ${vacante.titulo}`,
+        cerrarSesion : true,
+        nombre : req.user.nombre,
+        imagen : req.user.imagen,
+        candidatos : vacante.candidatos
     })
 }

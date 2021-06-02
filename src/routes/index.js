@@ -61,7 +61,9 @@ module.exports = () => {
     );
 
     //TODO Resetear password (email)
-    router.get('/restablecer-password', authController.formRestablecerPassword)
+    router.get('/restablecer-password', authController.formRestablecerPassword);
+    router.post('/restablecer-password', authController.enviarToken);
+
 
     //TODO Panel de adminitracion
     router.get('/administracion',

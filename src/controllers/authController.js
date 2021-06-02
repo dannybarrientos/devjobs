@@ -1,6 +1,8 @@
 const passport = require('../config/passport');
 const mongoose = require('mongoose');
 const Vacante = mongoose.model('Vacante');
+const Usuario = mongoose.model('Usuarios');
+const crypto = require('crypto');
 
 exports.autenticarUsuario = passport.authenticate('local', {
     successRedirect : '/administracion',
@@ -53,4 +55,29 @@ exports.formRestablecerPassword =  (req, res) => {
         nombrePagina : 'Restablecer tu password',
         tagline: 'Si ya tienes una cuenta pero olvidaste tu password coloca tu emmail'
     });
+}
+
+//TODO Genera el token en la tabla del usuario
+exports.enviarToken = async (req, res) => {
+
+
+    const usuario = await Usuario.findOne({ email: req.body.email });
+    if(!usuario) {
+        req.flash('error','El usuario no existe');
+        return res.redirect('/iniciar-sesion');
+    }
+
+    //TODO El usuario existe, genera un token
+
+    usuario.token = crypto.randomBytes(20).toString('hex');
+    usuario.expira = Date.now() + 3600000;
+
+    //TODO Guarda el usuario
+    await usuario.save();
+    const resetUrl =  `http://${req.headers.host}/restablecer-password/${usuario.token}`;
+    console.log(resetUrl);
+
+    //TODO Enviar notificacion por el email
+    req.flash('correcto','Revisa tu email para las indicaciones')
+    res.redirect('/iniciar-sesion')
 }

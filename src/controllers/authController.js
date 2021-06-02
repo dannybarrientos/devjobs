@@ -46,3 +46,11 @@ exports.cerrarSesion = (req, res) => {
 
     return res.redirect('iniciar-sesion')
 }
+
+//TODO Formulario para restablecer-password','
+exports.formRestablecerPassword =  (req, res) => {
+    res.render('restablecer-password', {
+        nombrePagina : 'Restablecer tu password',
+        tagline: 'Si ya tienes una cuenta pero olvidaste tu password coloca tu emmail'
+    });
+}

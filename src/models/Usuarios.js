@@ -19,7 +19,7 @@ const usuariosSchema = new mongoose.Schema({
         trim: true
     }, 
     token: String,
-    expira: Date, 
+    expira: Date,
     imagen: String
 });
 

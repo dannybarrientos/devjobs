@@ -96,5 +96,10 @@ module.exports = () => {
         authController.verificarUsuario,
         vacantesController.mostrarCandidatos
     );
+
+    //TODO
+    router.post('/buscador', vacantesController.buscarVacante)
+
+
     return router;
 }

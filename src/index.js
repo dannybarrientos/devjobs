@@ -82,7 +82,7 @@ app.use((error, req, res) => {
 
 });
 
-//Deja que heroku asigne el puerto
+//TODO Deja que heroku asigne el puerto
 const host = '0.0.0.0';
 const port = process.env.PORT
 

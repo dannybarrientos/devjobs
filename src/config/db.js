@@ -9,6 +9,6 @@ mongoose.connect(process.env.DATABASE, {
 mongoose.connection.on('error', (error) => {
     console.log(error);
 })
-//TODO mportar los modelos
+//TODO Importar los modelos
 require('../models/Usuarios');
 require('../models/Vacantes');
